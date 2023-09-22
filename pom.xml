@@ -2,9 +2,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.example</groupId>
-    <artifactId>embedding</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>io.metersphere</groupId>
+    <artifactId>graalpy-scriptengine</artifactId>
+    <version>1.0</version>
     <repositories>
         <!--
         Uncomment to use builds from snapshot repository. This is typically not necessary as all require artefacts are used on Maven
@@ -49,7 +49,7 @@
         -->
         <dependency>
             <groupId>org.graalvm.polyglot</groupId>
-            <artifactId>js</artifactId>
+            <artifactId>python</artifactId>
             <version>${graalvm.version}</version>
             <type>pom</type>
         </dependency>
@@ -63,12 +63,7 @@
              <type>pom</type>
          </dependency>
          -->
-        <!-- Use the JUnit version of your choice. -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -111,7 +106,7 @@
                                 <argument>--module-path</argument>
                                 <modulepath/>
                                 <argument>-m</argument>
-                                <argument>embedding/org.example.embedding.Main</argument>
+                                <argument>embedding/io.metersphere.scriptengine.Main</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -124,7 +119,7 @@
                         <argument>--module-path</argument>
                         <modulepath/>
                         <argument>-m</argument>
-                        <argument>embedding/org.example.embedding.Main</argument>
+                        <argument>embedding/io.metersphere.scriptengine.Main</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -165,7 +160,7 @@
                         </executions>
                         <configuration>
                             <imageName>${project.artifactId}</imageName>
-                            <mainClass>org.example.embedding.Main</mainClass>
+                            <mainClass>io.metersphere.scriptengine.Main</mainClass>
                             <buildArgs>
                                 <buildArg>--no-fallback</buildArg>
                                 <buildArg>-J-Xmx20g</buildArg>
@@ -286,7 +281,7 @@
                                         <argument>-XX:+EnableJVMCI</argument>
                                         <argument>--upgrade-module-path=${project.build.directory}/compiler/</argument>
                                         <argument>-m</argument>
-                                        <argument>embedding/org.example.embedding.Main</argument>
+                                        <argument>embedding/io.metersphere.scriptengine.Main</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -301,9 +296,51 @@
                                         <argument>--module-path</argument>
                                         <modulepath/>
                                         <argument>-m</argument>
-                                        <argument>embedding/org.example.embedding.Main</argument>
+                                        <argument>embedding/io.metersphere.scriptengine.Main</argument>
                                     </arguments>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-dependencies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>io.metersphere.scriptengine.Main</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>

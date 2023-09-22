@@ -38,14 +38,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.example.embedding;
+package io.metersphere.scriptengine;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Set;
 
 /**
@@ -53,7 +55,18 @@ import java.util.Set;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
+        ScriptEngineFactory factory = engine.getFactory();
+        factory.getNames().forEach(System.out::println);
+        Object eval = engine.eval("def fac(n):\n" +
+                "    if n <= 1:\n" +
+                "        return 1\n" +
+                "    return n * fac(n - 1)\n" +
+                "\n" +
+                "fac(5)");
+        System.out.println(eval);
+
         try (Context context = Context.newBuilder().allowAllAccess(true).build()) {
             Set<String> languages = context.getEngine().getLanguages().keySet();
             for (String id : languages) {
@@ -61,7 +74,8 @@ public class Main {
                 context.initialize(id);
                 switch (id) {
                     case "python":
-                        context.eval("python", "print('Hello Python!')");
+                        context.eval("python", "import sys \n" +
+                                "print(sys.version)");
                         break;
                     case "js":
                         context.eval("js", "print('Hello JavaScript!');");
