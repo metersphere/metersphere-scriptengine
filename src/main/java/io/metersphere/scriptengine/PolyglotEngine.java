@@ -124,7 +124,7 @@ public final class PolyglotEngine implements ScriptEngine, Compilable, Invocable
 
         @Override
         public Bindings createBindings() {
-            throw new UnsupportedOperationException("Bindings for Polyglot language cannot be created explicitly");
+            return defaultContext.getBindings(ScriptContext.ENGINE_SCOPE);
         }
 
         @Override
