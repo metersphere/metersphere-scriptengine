@@ -52,8 +52,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         new ScriptEngineManager().registerEngineName("python", new GraalPyEngineFactory());
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
-        ScriptEngineFactory factory = engine.getFactory();
-        factory.getNames().forEach(System.out::println);
+//        ScriptEngineFactory factory = engine.getFactory();
+//        factory.getNames().forEach(System.out::println);
         Object eval = engine.eval("def fac(n):\n" +
                 "    if n <= 1:\n" +
                 "        return 1\n" +
