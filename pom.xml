@@ -53,6 +53,12 @@
             <version>${graalvm.version}</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>llvm-community</artifactId>
+            <version>${graalvm.version}</version>
+            <type>pom</type>
+        </dependency>
 
         <!-- Uncomment to include language tooling like a sampling profiler and the chrome inspector support. -->
         <!--
