@@ -15,7 +15,7 @@ public final class GraalPyEngineFactory implements ScriptEngineFactory {
     /* Everything below is generic and does not need to change */
     /***********************************************************/
 
-    private final Engine polyglotEngine = Engine.newBuilder().build();
+    private final Engine polyglotEngine = Engine.newBuilder().option("engine.WarnInterpreterOnly", "false").build();
     private final Language language = polyglotEngine.getLanguages().get(LANGUAGE_ID);
 
     @Override
