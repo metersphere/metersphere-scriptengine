@@ -7,6 +7,7 @@ import org.graalvm.polyglot.Language;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import java.util.List;
+import java.util.Objects;
 
 public final class GraalPyEngineFactory implements ScriptEngineFactory {
     public static final String LANGUAGE_ID = "python";
@@ -72,17 +73,32 @@ public final class GraalPyEngineFactory implements ScriptEngineFactory {
 
     @Override
     public String getMethodCallSyntax(final String obj, final String m, final String... args) {
-        throw new UnsupportedOperationException("Unimplemented method 'getMethodCallSyntax'");
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(String.format("%s.%s(", obj, m));
+        int i = args.length;
+        for (String arg : args) {
+            buffer.append(arg);
+            if (i-- > 0) {
+                buffer.append(", ");
+            }
+        }
+        buffer.append(")");
+        return buffer.toString();
     }
 
     @Override
     public String getOutputStatement(final String toDisplay) {
-        throw new UnsupportedOperationException("Unimplemented method 'getOutputStatement'");
+        return "print(" + toDisplay + ")";
     }
 
     @Override
     public String getProgram(final String... statements) {
-        throw new UnsupportedOperationException("Unimplemented method 'getProgram'");
+        StringBuilder buffer = new StringBuilder();
+        for (String statement : statements) {
+            buffer.append(statement);
+            buffer.append("\n");
+        }
+        return buffer.toString();
     }
 
     @Override
