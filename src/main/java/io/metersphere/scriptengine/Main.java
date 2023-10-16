@@ -64,6 +64,7 @@ public class Main {
             new Thread(() -> {
                 try {
                     Object eval = engine.eval(script);
+                    System.out.println(eval);
                 } catch (ScriptException e) {
                     throw new RuntimeException(e);
                 }

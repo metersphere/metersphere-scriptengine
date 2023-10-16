@@ -93,12 +93,14 @@ public final class PolyglotEngine implements ScriptEngine, Compilable, Invocable
 
     @Override
     public Object eval(String script, Bindings n) throws ScriptException {
-        throw new UnsupportedOperationException("Bindings for Polyglot language cannot be created explicitly");
+        n.forEach((key, value) -> defaultContext.getBindings(ScriptContext.ENGINE_SCOPE).put(key, value));
+        return eval(script);
     }
 
     @Override
     public Object eval(Reader reader, Bindings n) throws ScriptException {
-        throw new UnsupportedOperationException("Bindings for Polyglot language cannot be created explicitly");
+        n.forEach((key, value) -> defaultContext.getBindings(ScriptContext.ENGINE_SCOPE).put(key, value));
+        return eval(reader);
     }
 
     @Override
