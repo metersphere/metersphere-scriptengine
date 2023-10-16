@@ -7,7 +7,6 @@ import org.graalvm.polyglot.Language;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import java.util.List;
-import java.util.Objects;
 
 public final class GraalPyEngineFactory implements ScriptEngineFactory {
     public static final String LANGUAGE_ID = "python";
@@ -15,6 +14,10 @@ public final class GraalPyEngineFactory implements ScriptEngineFactory {
     /***********************************************************/
     /* Everything below is generic and does not need to change */
     /***********************************************************/
+
+    static {
+        System.setProperty("python.AutomaticAsyncActions", "false");
+    }
 
     private final Engine polyglotEngine = Engine.newBuilder().option("engine.WarnInterpreterOnly", "false").build();
     private final Language language = polyglotEngine.getLanguages().get(LANGUAGE_ID);

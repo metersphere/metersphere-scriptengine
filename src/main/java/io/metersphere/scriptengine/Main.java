@@ -41,8 +41,8 @@
 package io.metersphere.scriptengine;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 /**
  * A basic polyglot application that tries to exercise a simple hello world style program in all installed languages.
@@ -50,16 +50,27 @@ import javax.script.ScriptEngineManager;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        new ScriptEngineManager().registerEngineName("python", new GraalPyEngineFactory());
+
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
 //        ScriptEngineFactory factory = engine.getFactory();
 //        factory.getNames().forEach(System.out::println);
-        Object eval = engine.eval("def fac(n):\n" +
+        String script = "def fac(n):\n" +
                 "    if n <= 1:\n" +
                 "        return 1\n" +
                 "    return n * fac(n - 1)\n" +
                 "\n" +
-                "fac(5)");
-        System.out.println(eval);
+                "fac(5)";
+        for (int i = 0; i < 10; i++) {
+            new Thread(() -> {
+                try {
+                    Object eval = engine.eval(script);
+                } catch (ScriptException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        }
+//        System.out.println(eval);
+
+        Thread.sleep(200000);
     }
 }
