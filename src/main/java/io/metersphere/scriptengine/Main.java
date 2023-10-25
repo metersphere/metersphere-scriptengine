@@ -41,6 +41,7 @@
 package io.metersphere.scriptengine;
 
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
@@ -61,17 +62,16 @@ public class Main {
                 "\n" +
                 "fac(5)";
         for (int i = 0; i < 10; i++) {
-            new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 try {
                     Object eval = engine.eval(script);
                     System.out.println(eval);
                 } catch (ScriptException e) {
                     throw new RuntimeException(e);
                 }
-            }).start();
+            });
+            thread.start();
+            thread.join();
         }
-//        System.out.println(eval);
-
-        Thread.sleep(200000);
     }
 }
