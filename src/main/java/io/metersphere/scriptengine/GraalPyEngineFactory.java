@@ -17,6 +17,7 @@ public final class GraalPyEngineFactory implements ScriptEngineFactory {
 
     static {
         System.setProperty("python.AutomaticAsyncActions", "false");
+        System.setProperty("polyglot.log.file", "/tmp/polyglot.log");
     }
 
     private final Engine polyglotEngine = Engine.newBuilder().option("engine.WarnInterpreterOnly", "false").build();
