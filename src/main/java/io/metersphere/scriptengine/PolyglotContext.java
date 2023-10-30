@@ -49,7 +49,9 @@ public final class PolyglotContext implements ScriptContext {
 
     @Override
     public void setBindings(Bindings bindings, int scope) {
-        if (scope == ScriptContext.GLOBAL_SCOPE) {
+        if (scope == ScriptContext.ENGINE_SCOPE) {
+            getBindings(scope).putAll(bindings);
+        } else if (scope == ScriptContext.GLOBAL_SCOPE) {
             if (context == null) {
                 globalBindings = bindings;
             } else {
