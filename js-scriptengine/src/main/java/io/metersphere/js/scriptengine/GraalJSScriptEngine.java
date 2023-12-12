@@ -320,7 +320,7 @@ public final class GraalJSScriptEngine extends AbstractScriptEngine implements C
         if (contextConfigToUse == null) {
             // default config
 //            contextConfigToUse = Context.newBuilder(ID).allowExperimentalOptions(true);
-            contextConfigToUse = Context.newBuilder(ID).allowExperimentalOptions(true).allowIO(IOAccess.ALL); // load函数可以执行
+            contextConfigToUse = Context.newBuilder(ID).allowExperimentalOptions(true).allowAllAccess(true); // load函数可以执行
             contextConfigToUse.option(JS_SYNTAX_EXTENSIONS_OPTION, "true");
             contextConfigToUse.option(JS_LOAD_OPTION, "true");
             contextConfigToUse.option(JS_PRINT_OPTION, "true");
