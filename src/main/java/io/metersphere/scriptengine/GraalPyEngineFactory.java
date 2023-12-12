@@ -20,7 +20,7 @@ public final class GraalPyEngineFactory implements ScriptEngineFactory {
         System.setProperty("polyglot.log.file", "/tmp/polyglot.log");
     }
 
-    private final Engine polyglotEngine = Engine.newBuilder().option("engine.WarnInterpreterOnly", "false").build();
+    private final Engine polyglotEngine = Engine.newBuilder().allowExperimentalOptions(true).option("engine.WarnInterpreterOnly", "false").build();
     private final Language language = polyglotEngine.getLanguages().get(LANGUAGE_ID);
 
     @Override
