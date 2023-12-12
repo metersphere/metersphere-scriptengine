@@ -38,7 +38,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.metersphere.scriptengine;
+package io.metersphere.python.scriptengine;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;

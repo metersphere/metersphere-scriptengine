@@ -1,4 +1,4 @@
-package io.metersphere.scriptengine;
+package io.metersphere.python.scriptengine;
 
 import org.graalvm.polyglot.PolyglotException;
 import org.graalvm.polyglot.Source;
@@ -8,7 +8,7 @@ import javax.script.*;
 import java.io.IOException;
 import java.io.Reader;
 
-import static io.metersphere.scriptengine.GraalPyEngineFactory.LANGUAGE_ID;
+import static io.metersphere.python.scriptengine.GraalPyEngineFactory.LANGUAGE_ID;
 
 public final class PolyglotEngine implements ScriptEngine, Compilable, Invocable, AutoCloseable {
     private final ScriptEngineFactory factory;

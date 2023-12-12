@@ -1,4 +1,4 @@
-package io.metersphere.scriptengine;
+package io.metersphere.python.scriptengine;
 
 import org.graalvm.polyglot.Context;
 
@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Map;
 
-import static io.metersphere.scriptengine.GraalPyEngineFactory.LANGUAGE_ID;
+import static io.metersphere.python.scriptengine.GraalPyEngineFactory.LANGUAGE_ID;
 
 public final class PolyglotContext implements ScriptContext {
     private Context context;

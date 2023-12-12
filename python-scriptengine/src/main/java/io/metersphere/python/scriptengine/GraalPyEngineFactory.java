@@ -1,4 +1,4 @@
-package io.metersphere.scriptengine;
+package io.metersphere.python.scriptengine;
 
 import org.graalvm.home.Version;
 import org.graalvm.polyglot.Engine;
