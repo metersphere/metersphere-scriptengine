@@ -19,7 +19,7 @@
     <distributionManagement>
         <repository>
             <id>metersphere-public</id>
-            <url>https://repository.fit2cloud.com/content/repositories/metersphere</url>
+            <url>https://repository.fit2cloud.com/repository/metersphere/</url>
         </repository>
     </distributionManagement>
 </project>
