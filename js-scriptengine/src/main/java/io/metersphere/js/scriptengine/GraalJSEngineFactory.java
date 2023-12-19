@@ -73,7 +73,7 @@ public final class GraalJSEngineFactory implements ScriptEngineFactory {
     }
 
     private static Engine createDefaultEngine() {
-        return Engine.newBuilder().allowExperimentalOptions(true).build();
+        return Engine.newBuilder().allowExperimentalOptions(true).option("engine.WarnInterpreterOnly", "false").build();
     }
 
     /**
